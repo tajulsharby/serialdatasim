@@ -1,5 +1,9 @@
 # Serial Port Data Simulator
 
+**Author:** TJ S  
+**GitHub:** [https://github.com/tajulsharby](https://github.com/tajulsharby)  
+**LinkedIn:** [https://www.linkedin.com/in/tajulsharby/](https://www.linkedin.com/in/tajulsharby/)
+
 ## Overview
 
 **Serial Port Data Simulator** is a Python-based application designed to simulate data streams through virtual COM ports. This tool is particularly useful for testing applications that need to read from COM ports without requiring physical devices. It allows you to configure a virtual COM port to send simulated data, which can then be read by another application.
@@ -72,9 +76,3 @@ If you have suggestions for improving this project, feel free to submit a pull r
 ## License
 
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
-
-## Author
-
-- **TJ S**  
-  - [GitHub](https://github.com/tajulsharby)  
-  - [LinkedIn](https://www.linkedin.com/in/tajulsharby/)
