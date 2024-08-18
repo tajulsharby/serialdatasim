@@ -78,7 +78,3 @@ This project is licensed under the MIT License. See the `LICENSE` file for more 
 - **TJ S**  
   - [GitHub](https://github.com/tajulsharby)  
   - [LinkedIn](https://www.linkedin.com/in/tajulsharby/)
-
----
-
-You can now replace the content in your `README.md` file with this updated version. Let me know if there’s anything else you need!
