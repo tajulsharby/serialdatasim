@@ -36,7 +36,12 @@ def generate_data_line(km_pipeline):
     return data_line
 
 def start_simulation(write_port, baud_rate, data_frequency):
-    ser_write = serial.Serial(write_port, baud_rate)
+    try:
+        ser_write = serial.Serial(write_port, baud_rate, timeout=1)
+    except serial.SerialException as e:
+        print(f"Error opening port: {str(e)}")
+        sys.exit(1)
+
     km_pipeline = 0.0
 
     def graceful_shutdown(signal, frame):
@@ -49,13 +54,21 @@ def start_simulation(write_port, baud_rate, data_frequency):
     try:
         while True:
             data_line = generate_data_line(km_pipeline)
-            ser_write.write(data_line.encode('utf-8') + b'\n')
-            print(f"Sent to {write_port}: {data_line}")
-            
-            km_pipeline += 0.5 * (data_frequency / 3600.0)  # Assuming 0.5 km per hour, scaled by frequency
+
+            try:
+                ser_write.write((data_line + "\r\n").encode('utf-8'))  # Ensure newline and carriage return
+                ser_write.flush()  # Flush after writing
+                print(f"Sent to {write_port}: {data_line}")
+
+            except serial.SerialException as e:
+                print(f"Error writing to port: {str(e)}. Closing connection.")
+                break  # Exit the loop if there's an error writing to the port
+
+            km_pipeline += 0.5 * (data_frequency / 3600.0)  # Simulate 0.5 km per hour movement
             time.sleep(data_frequency)
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
+
+    except KeyboardInterrupt:
+        graceful_shutdown(signal.SIGINT, None)
     finally:
         ser_write.close()
 
